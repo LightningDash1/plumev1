@@ -58,6 +58,7 @@ export default {
         transport: "hsl(var(--transport))",
         subscription: "hsl(var(--subscription))",
         entertainment: "hsl(var(--entertainment))",
+        education: "hsl(var(--education))",
         other: "hsl(var(--other))",
         // Status colors
         success: {

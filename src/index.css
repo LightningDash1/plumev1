@@ -41,6 +41,7 @@
     --transport: 200 85% 50%;
     --subscription: 340 75% 55%;
     --entertainment: 160 70% 45%;
+    --education: 250 70% 60%;
     --other: 220 15% 60%;
 
     /* Success/Warning */
@@ -182,6 +183,14 @@
 
   .category-entertainment {
     @apply bg-entertainment/15 text-entertainment;
+  }
+
+  .category-education {
+    @apply bg-education/15 text-education;
+  }
+
+  .category-other {
+    @apply bg-other/15 text-other;
   }
 }
 
