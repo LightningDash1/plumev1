@@ -1,4 +1,4 @@
-export type Category = 'food' | 'shopping' | 'transport' | 'subscription' | 'entertainment' | 'other';
+export type Category = 'food' | 'entertainment' | 'transport' | 'shopping' | 'subscription' | 'education' | 'other';
 
 export interface Transaction {
   id: string;
@@ -75,29 +75,28 @@ export const mockUserProfile: UserProfile = {
   streak: 7,
 };
 
+// Category display info
+export const categoryInfo: Record<Category, { emoji: string; label: string; color: string }> = {
+  food: { emoji: '🍔', label: 'Food & Snacks', color: 'bg-food/15 text-food' },
+  entertainment: { emoji: '🎮', label: 'Entertainment', color: 'bg-entertainment/15 text-entertainment' },
+  transport: { emoji: '🚌', label: 'Travel & Transport', color: 'bg-transport/15 text-transport' },
+  shopping: { emoji: '🛍️', label: 'Shopping', color: 'bg-shopping/15 text-shopping' },
+  subscription: { emoji: '📱', label: 'Subscriptions', color: 'bg-subscription/15 text-subscription' },
+  education: { emoji: '📚', label: 'Education', color: 'bg-education/15 text-education' },
+  other: { emoji: '➕', label: 'Others', color: 'bg-other/15 text-other' },
+};
+
 // Helper functions
 export const getCategoryColor = (category: Category): string => {
-  const colors: Record<Category, string> = {
-    food: 'bg-food/15 text-food',
-    shopping: 'bg-shopping/15 text-shopping',
-    transport: 'bg-transport/15 text-transport',
-    subscription: 'bg-subscription/15 text-subscription',
-    entertainment: 'bg-entertainment/15 text-entertainment',
-    other: 'bg-other/15 text-other',
-  };
-  return colors[category];
+  return categoryInfo[category].color;
 };
 
 export const getCategoryEmoji = (category: Category): string => {
-  const emojis: Record<Category, string> = {
-    food: '🍔',
-    shopping: '🛍️',
-    transport: '🚗',
-    subscription: '📱',
-    entertainment: '🎮',
-    other: '💳',
-  };
-  return emojis[category];
+  return categoryInfo[category].emoji;
+};
+
+export const getCategoryLabel = (category: Category): string => {
+  return categoryInfo[category].label;
 };
 
 export const formatCurrency = (amount: number): string => {
@@ -129,10 +128,11 @@ export const getWeeklySpending = (): number => {
 export const getSpendingByCategory = (): Record<Category, number> => {
   const spending: Record<Category, number> = {
     food: 0,
-    shopping: 0,
-    transport: 0,
-    subscription: 0,
     entertainment: 0,
+    transport: 0,
+    shopping: 0,
+    subscription: 0,
+    education: 0,
     other: 0,
   };
   

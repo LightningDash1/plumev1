@@ -3,16 +3,18 @@ import { BottomNav } from '@/components/BottomNav';
 import { TransactionItem } from '@/components/TransactionItem';
 import { SubscriptionCard } from '@/components/SubscriptionCard';
 import { InsightCard } from '@/components/InsightCard';
+import { SpendingCategories } from '@/components/SpendingCategories';
 import { 
   mockTransactions, 
   mockSubscriptions,
   Category,
   getSpendingByCategory,
-  formatCurrency
+  formatCurrency,
+  getCategoryLabel
 } from '@/data/mockData';
 import { cn } from '@/lib/utils';
 
-type Tab = 'transactions' | 'subscriptions';
+type Tab = 'transactions' | 'subscriptions' | 'categories';
 type Filter = 'all' | 'today' | 'week';
 
 const filterLabels: Record<Filter, string> = {
@@ -72,11 +74,11 @@ export const Expenses = () => {
         <h1 className="text-2xl font-bold text-foreground mb-6">Your Spending</h1>
         
         {/* Tabs */}
-        <div className="flex gap-2 p-1 bg-card rounded-xl shadow-soft">
+        <div className="flex gap-1 p-1 bg-card rounded-xl shadow-soft">
           <button
             onClick={() => setActiveTab('transactions')}
             className={cn(
-              "flex-1 py-3 rounded-lg font-semibold transition-all",
+              "flex-1 py-2.5 rounded-lg font-semibold text-sm transition-all",
               activeTab === 'transactions' 
                 ? "gradient-primary text-primary-foreground shadow-primary" 
                 : "text-muted-foreground"
@@ -85,9 +87,20 @@ export const Expenses = () => {
             Transactions
           </button>
           <button
+            onClick={() => setActiveTab('categories')}
+            className={cn(
+              "flex-1 py-2.5 rounded-lg font-semibold text-sm transition-all",
+              activeTab === 'categories' 
+                ? "gradient-primary text-primary-foreground shadow-primary" 
+                : "text-muted-foreground"
+            )}
+          >
+            Categories
+          </button>
+          <button
             onClick={() => setActiveTab('subscriptions')}
             className={cn(
-              "flex-1 py-3 rounded-lg font-semibold transition-all",
+              "flex-1 py-2.5 rounded-lg font-semibold text-sm transition-all",
               activeTab === 'subscriptions' 
                 ? "gradient-primary text-primary-foreground shadow-primary" 
                 : "text-muted-foreground"
@@ -103,8 +116,8 @@ export const Expenses = () => {
           <>
             {/* Insight */}
             <InsightCard 
-              text={`Most spent on ${topCategory[0]}: ${formatCurrency(topCategory[1])}`}
-              emoji={topCategory[0] === 'food' ? '🍔' : '🛍️'}
+              text={`Most spent on ${getCategoryLabel(topCategory[0] as Category)}: ${formatCurrency(topCategory[1])}`}
+              emoji={topCategory[0] === 'food' ? '🍔' : topCategory[0] === 'entertainment' ? '🎮' : '🛍️'}
               variant="accent"
             />
 
@@ -144,6 +157,8 @@ export const Expenses = () => {
                 ))}
             </div>
           </>
+        ) : activeTab === 'categories' ? (
+          <SpendingCategories />
         ) : (
           <>
             {/* Subscriptions Summary */}
