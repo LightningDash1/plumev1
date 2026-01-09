@@ -4,7 +4,8 @@ import { Button } from '@/components/ui/button';
 import { useUser } from '@/contexts/UserContext';
 import { Category } from '@/data/mockData';
 import { cn } from '@/lib/utils';
-import { ArrowRight, Shield, Sparkles } from 'lucide-react';
+import { ArrowRight, Shield } from 'lucide-react';
+import plumeLogo from '@/assets/plume-logo.png';
 
 const ageOptions = [13, 14, 15, 16, 17, 18, 19];
 const allowanceOptions = [
@@ -83,12 +84,11 @@ export const Onboarding = () => {
         {/* Step 0: Welcome */}
         {step === 0 && (
           <div className="flex-1 flex flex-col items-center justify-center text-center animate-fade-in">
-            <div className="w-24 h-24 rounded-3xl gradient-primary flex items-center justify-center mb-6 shadow-primary animate-float">
-              <Sparkles className="w-12 h-12 text-primary-foreground" />
-            </div>
-            <h1 className="text-4xl font-extrabold text-foreground mb-3">
-              Welcome to Plume
-            </h1>
+            <img 
+              src={plumeLogo} 
+              alt="Plume Logo" 
+              className="w-48 h-48 object-contain mb-6 animate-float"
+            />
             <p className="text-lg text-muted-foreground max-w-xs">
               Your friendly money companion. Let's set things up in under a minute! ⚡
             </p>
