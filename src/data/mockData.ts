@@ -36,23 +36,30 @@ export interface UserProfile {
   streak: number;
 }
 
+// Helper to get date strings relative to today
+const getDateString = (daysAgo: number): string => {
+  const date = new Date();
+  date.setDate(date.getDate() - daysAgo);
+  return date.toISOString().split('T')[0];
+};
+
 // Mock transactions for the last 7 days
 export const mockTransactions: Transaction[] = [
-  { id: '1', description: 'McDonald\'s', amount: 249, category: 'food', date: '2026-01-08', emoji: '🍔' },
-  { id: '2', description: 'Uber ride', amount: 185, category: 'transport', date: '2026-01-08', emoji: '🚗' },
-  { id: '3', description: 'Spotify Premium', amount: 119, category: 'subscription', date: '2026-01-08', emoji: '🎵' },
-  { id: '4', description: 'Domino\'s Pizza', amount: 399, category: 'food', date: '2026-01-07', emoji: '🍕' },
-  { id: '5', description: 'Amazon Shopping', amount: 899, category: 'shopping', date: '2026-01-07', emoji: '📦' },
-  { id: '6', description: 'Metro Card', amount: 100, category: 'transport', date: '2026-01-07', emoji: '🚇' },
-  { id: '7', description: 'Starbucks', amount: 350, category: 'food', date: '2026-01-06', emoji: '☕' },
-  { id: '8', description: 'Movie Tickets', amount: 500, category: 'entertainment', date: '2026-01-06', emoji: '🎬' },
-  { id: '9', description: 'Netflix', amount: 199, category: 'subscription', date: '2026-01-05', emoji: '📺' },
-  { id: '10', description: 'Swiggy Order', amount: 275, category: 'food', date: '2026-01-05', emoji: '🥡' },
-  { id: '11', description: 'Zara T-shirt', amount: 1299, category: 'shopping', date: '2026-01-04', emoji: '👕' },
-  { id: '12', description: 'Auto fare', amount: 80, category: 'transport', date: '2026-01-04', emoji: '🛺' },
-  { id: '13', description: 'KFC', amount: 320, category: 'food', date: '2026-01-03', emoji: '🍗' },
-  { id: '14', description: 'YouTube Premium', amount: 129, category: 'subscription', date: '2026-01-02', emoji: '▶️' },
-  { id: '15', description: 'Cafe Coffee Day', amount: 180, category: 'food', date: '2026-01-02', emoji: '☕' },
+  { id: '1', description: 'McDonald\'s', amount: 249, category: 'food', date: getDateString(0), emoji: '🍔' },
+  { id: '2', description: 'Uber ride', amount: 185, category: 'transport', date: getDateString(0), emoji: '🚗' },
+  { id: '3', description: 'Spotify Premium', amount: 119, category: 'subscription', date: getDateString(0), emoji: '🎵' },
+  { id: '4', description: 'Domino\'s Pizza', amount: 399, category: 'food', date: getDateString(1), emoji: '🍕' },
+  { id: '5', description: 'Amazon Shopping', amount: 899, category: 'shopping', date: getDateString(1), emoji: '📦' },
+  { id: '6', description: 'Metro Card', amount: 100, category: 'transport', date: getDateString(1), emoji: '🚇' },
+  { id: '7', description: 'Starbucks', amount: 350, category: 'food', date: getDateString(2), emoji: '☕' },
+  { id: '8', description: 'Movie Tickets', amount: 500, category: 'entertainment', date: getDateString(2), emoji: '🎬' },
+  { id: '9', description: 'Netflix', amount: 199, category: 'subscription', date: getDateString(3), emoji: '📺' },
+  { id: '10', description: 'Swiggy Order', amount: 275, category: 'food', date: getDateString(3), emoji: '🥡' },
+  { id: '11', description: 'Zara T-shirt', amount: 1299, category: 'shopping', date: getDateString(4), emoji: '👕' },
+  { id: '12', description: 'Auto fare', amount: 80, category: 'transport', date: getDateString(4), emoji: '🛺' },
+  { id: '13', description: 'KFC', amount: 320, category: 'food', date: getDateString(5), emoji: '🍗' },
+  { id: '14', description: 'YouTube Premium', amount: 129, category: 'subscription', date: getDateString(6), emoji: '▶️' },
+  { id: '15', description: 'Cafe Coffee Day', amount: 180, category: 'food', date: getDateString(6), emoji: '☕' },
 ];
 
 export const mockSubscriptions: Subscription[] = [
@@ -145,8 +152,9 @@ export const getSpendingByCategory = (): Record<Category, number> => {
 
 export const generateInsight = (): { text: string; emoji: string } => {
   const todaySpending = getTodaySpending();
+  const today = new Date().toISOString().split('T')[0];
   const foodSpending = mockTransactions
-    .filter(t => t.date === '2026-01-08' && t.category === 'food')
+    .filter(t => t.date === today && t.category === 'food')
     .reduce((sum, t) => sum + t.amount, 0);
   
   if (foodSpending > 200) {

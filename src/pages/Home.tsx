@@ -21,7 +21,8 @@ export const Home = () => {
   const todaySpending = getTodaySpending();
   const weeklySpending = getWeeklySpending();
   const insight = generateInsight();
-  const todayTransactions = mockTransactions.filter(t => t.date === '2026-01-08');
+  const today = new Date().toISOString().split('T')[0];
+  const todayTransactions = mockTransactions.filter(t => t.date === today);
   
   // Check for urgent subscriptions
   const urgentSubs = mockSubscriptions.filter(s => getDaysUntil(s.renewalDate) <= 3);
