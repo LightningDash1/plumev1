@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { BottomNav } from '@/components/BottomNav';
 import { InsightCard } from '@/components/InsightCard';
 import { SpendingChart } from '@/components/SpendingChart';
+import { SpendingAdvisor } from '@/components/SpendingAdvisor';
 import { TransactionItem } from '@/components/TransactionItem';
 import { Button } from '@/components/ui/button';
 import { useUser } from '@/contexts/UserContext';
@@ -110,6 +111,7 @@ export const Home = () => {
         </div>
       </main>
 
+      <SpendingAdvisor />
       <BottomNav />
     </div>
   );
