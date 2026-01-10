@@ -1,0 +1,4 @@
+project_id = "ukrjiaakewpklubbxjyv"
+
+[functions.spending-advisor]
+verify_jwt = false
