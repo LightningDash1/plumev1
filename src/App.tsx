@@ -10,6 +10,7 @@ import Index from "./pages/Index";
 import { Expenses } from "./pages/Expenses";
 import { Goals } from "./pages/Goals";
 import { Profile } from "./pages/Profile";
+import { Learn } from "./pages/Learn";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -47,7 +48,7 @@ const App = () => {
               <Route path="/expenses" element={<Expenses />} />
               <Route path="/goals" element={<Goals />} />
               <Route path="/profile" element={<Profile />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="/learn" element={<Learn />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
