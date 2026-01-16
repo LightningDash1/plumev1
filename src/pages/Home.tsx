@@ -1,8 +1,14 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BottomNav } from '@/components/BottomNav';
 import { InsightCard } from '@/components/InsightCard';
 import { SpendingChart } from '@/components/SpendingChart';
 import { SpendingAdvisor } from '@/components/SpendingAdvisor';
+import { QuickAddExpense } from '@/components/QuickAddExpense';
+import { WeeklyReflection } from '@/components/WeeklyReflection';
+import { NeedVsWantChart } from '@/components/NeedVsWantChart';
+import { MicroInsights } from '@/components/MicroInsights';
+import { SpendingStreak, updateLoggingStreak } from '@/components/SpendingStreak';
 import { TransactionItem } from '@/components/TransactionItem';
 import { Button } from '@/components/ui/button';
 import { useUser } from '@/contexts/UserContext';
@@ -12,6 +18,7 @@ import {
   formatCurrency, 
   getTodaySpending, 
   getWeeklySpending,
+  getMonthlySpending,
   generateInsight,
   getDaysUntil
 } from '@/data/mockData';
@@ -19,17 +26,26 @@ import { ArrowRight, Bell } from 'lucide-react';
 
 export const Home = () => {
   const { user } = useUser();
+  const [refreshKey, setRefreshKey] = useState(0);
+  
   const todaySpending = getTodaySpending();
   const weeklySpending = getWeeklySpending();
+  const monthlySpending = getMonthlySpending();
   const insight = generateInsight();
   const today = new Date().toISOString().split('T')[0];
   const todayTransactions = mockTransactions.filter(t => t.date === today);
   
-  // Check for urgent subscriptions
   const urgentSubs = mockSubscriptions.filter(s => getDaysUntil(s.renewalDate) <= 3);
+
+  const handleExpenseAdded = () => {
+    updateLoggingStreak();
+    setRefreshKey(prev => prev + 1);
+  };
 
   return (
     <div className="min-h-screen bg-background pb-24">
+      <WeeklyReflection />
+      
       {/* Header */}
       <header className="gradient-hero px-6 pt-8 pb-6">
         <div className="flex items-center justify-between mb-6">
@@ -37,12 +53,7 @@ export const Home = () => {
             <p className="text-muted-foreground font-medium">Good morning 👋</p>
             <h1 className="text-2xl font-bold text-foreground">{user?.name || 'Friend'}</h1>
           </div>
-          {user?.streak && user.streak > 0 && (
-            <div className="flex items-center gap-1 bg-accent-soft px-3 py-1.5 rounded-full">
-              <span className="text-lg">🔥</span>
-              <span className="font-bold text-accent">{user.streak} day streak</span>
-            </div>
-          )}
+          <SpendingStreak key={refreshKey} />
         </div>
 
         {/* Today's Spending Card */}
@@ -51,15 +62,24 @@ export const Home = () => {
           <p className="text-4xl font-extrabold text-foreground mb-4">
             {formatCurrency(todaySpending)}
           </p>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <span>This week:</span>
-            <span className="font-bold text-foreground">{formatCurrency(weeklySpending)}</span>
+          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+            <div>
+              <span>This week: </span>
+              <span className="font-bold text-foreground">{formatCurrency(weeklySpending)}</span>
+            </div>
+            <div>
+              <span>This month: </span>
+              <span className="font-bold text-foreground">{formatCurrency(monthlySpending)}</span>
+            </div>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
       <main className="px-6 py-6 space-y-6">
+        {/* Micro Insights */}
+        <MicroInsights key={refreshKey} />
+
         {/* Insight Card */}
         <InsightCard text={insight.text} emoji={insight.emoji} />
 
@@ -82,6 +102,9 @@ export const Home = () => {
             </div>
           </Link>
         )}
+
+        {/* Need vs Want Chart */}
+        <NeedVsWantChart key={refreshKey} />
 
         {/* Weekly Chart */}
         <SpendingChart />
@@ -111,6 +134,7 @@ export const Home = () => {
         </div>
       </main>
 
+      <QuickAddExpense onExpenseAdded={handleExpenseAdded} />
       <SpendingAdvisor />
       <BottomNav />
     </div>
