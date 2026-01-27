@@ -49,6 +49,7 @@ const getDateString = (daysAgo: number): string => {
 
 // Mutable transactions array for adding new expenses
 export let mockTransactions: Transaction[] = [
+  // This week
   { id: '1', description: 'Chai & Samosa', amount: 45, category: 'food', date: getDateString(0), emoji: '☕', type: 'want' },
   { id: '2', description: 'Bus Pass', amount: 150, category: 'transport', date: getDateString(0), emoji: '🚌', type: 'need' },
   { id: '3', description: 'Maggi at canteen', amount: 30, category: 'food', date: getDateString(1), emoji: '🍜', type: 'want' },
@@ -61,6 +62,18 @@ export let mockTransactions: Transaction[] = [
   { id: '10', description: 'Metro fare', amount: 40, category: 'transport', date: getDateString(5), emoji: '🚇', type: 'need' },
   { id: '11', description: 'Momos', amount: 60, category: 'food', date: getDateString(5), emoji: '🥟', type: 'want' },
   { id: '12', description: 'Online course', amount: 199, category: 'education', date: getDateString(6), emoji: '💻', type: 'need' },
+  // Last week (8-14 days ago)
+  { id: '13', description: 'Pizza party', amount: 350, category: 'food', date: getDateString(8), emoji: '🍕', type: 'want' },
+  { id: '14', description: 'New T-shirt', amount: 499, category: 'shopping', date: getDateString(9), emoji: '👕', type: 'want' },
+  { id: '15', description: 'Uber to mall', amount: 120, category: 'transport', date: getDateString(10), emoji: '🚗', type: 'want' },
+  { id: '16', description: 'Netflix', amount: 199, category: 'subscription', date: getDateString(11), emoji: '📺', type: 'want' },
+  { id: '17', description: 'Burger King', amount: 280, category: 'food', date: getDateString(12), emoji: '🍔', type: 'want' },
+  // Earlier this month (15-25 days ago)
+  { id: '18', description: 'School supplies', amount: 450, category: 'education', date: getDateString(15), emoji: '📚', type: 'need' },
+  { id: '19', description: 'Arcade games', amount: 200, category: 'entertainment', date: getDateString(18), emoji: '🎮', type: 'want' },
+  { id: '20', description: 'Cafe with friends', amount: 180, category: 'food', date: getDateString(20), emoji: '☕', type: 'want' },
+  { id: '21', description: 'Concert tickets', amount: 800, category: 'entertainment', date: getDateString(22), emoji: '🎤', type: 'want' },
+  { id: '22', description: 'Sneakers', amount: 1200, category: 'shopping', date: getDateString(25), emoji: '👟', type: 'want' },
 ];
 
 // Helper to get future date strings
