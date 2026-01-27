@@ -49,21 +49,18 @@ const getDateString = (daysAgo: number): string => {
 
 // Mutable transactions array for adding new expenses
 export let mockTransactions: Transaction[] = [
-  { id: '1', description: 'McDonald\'s', amount: 249, category: 'food', date: getDateString(0), emoji: '🍔', type: 'want' },
-  { id: '2', description: 'Uber ride', amount: 185, category: 'transport', date: getDateString(0), emoji: '🚗', type: 'need' },
-  { id: '3', description: 'Spotify Premium', amount: 119, category: 'subscription', date: getDateString(0), emoji: '🎵', type: 'want' },
-  { id: '4', description: 'Domino\'s Pizza', amount: 399, category: 'food', date: getDateString(1), emoji: '🍕', type: 'want' },
-  { id: '5', description: 'Amazon Shopping', amount: 899, category: 'shopping', date: getDateString(1), emoji: '📦', type: 'want' },
-  { id: '6', description: 'Metro Card', amount: 100, category: 'transport', date: getDateString(1), emoji: '🚇', type: 'need' },
-  { id: '7', description: 'Starbucks', amount: 350, category: 'food', date: getDateString(2), emoji: '☕', type: 'want' },
-  { id: '8', description: 'Movie Tickets', amount: 500, category: 'entertainment', date: getDateString(2), emoji: '🎬', type: 'want' },
-  { id: '9', description: 'Netflix', amount: 199, category: 'subscription', date: getDateString(3), emoji: '📺', type: 'want' },
-  { id: '10', description: 'Swiggy Order', amount: 275, category: 'food', date: getDateString(3), emoji: '🥡', type: 'want' },
-  { id: '11', description: 'Zara T-shirt', amount: 1299, category: 'shopping', date: getDateString(4), emoji: '👕', type: 'want' },
-  { id: '12', description: 'Auto fare', amount: 80, category: 'transport', date: getDateString(4), emoji: '🛺', type: 'need' },
-  { id: '13', description: 'KFC', amount: 320, category: 'food', date: getDateString(5), emoji: '🍗', type: 'want' },
-  { id: '14', description: 'YouTube Premium', amount: 129, category: 'subscription', date: getDateString(6), emoji: '▶️', type: 'want' },
-  { id: '15', description: 'Cafe Coffee Day', amount: 180, category: 'food', date: getDateString(6), emoji: '☕', type: 'want' },
+  { id: '1', description: 'Chai & Samosa', amount: 45, category: 'food', date: getDateString(0), emoji: '☕', type: 'want' },
+  { id: '2', description: 'Bus Pass', amount: 150, category: 'transport', date: getDateString(0), emoji: '🚌', type: 'need' },
+  { id: '3', description: 'Maggi at canteen', amount: 30, category: 'food', date: getDateString(1), emoji: '🍜', type: 'want' },
+  { id: '4', description: 'Notebook & Pens', amount: 120, category: 'education', date: getDateString(1), emoji: '📓', type: 'need' },
+  { id: '5', description: 'Ice cream with friends', amount: 80, category: 'food', date: getDateString(2), emoji: '🍦', type: 'want' },
+  { id: '6', description: 'Auto to tuition', amount: 60, category: 'transport', date: getDateString(2), emoji: '🛺', type: 'need' },
+  { id: '7', description: 'Movie with friends', amount: 250, category: 'entertainment', date: getDateString(3), emoji: '🎬', type: 'want' },
+  { id: '8', description: 'Spotify', amount: 59, category: 'subscription', date: getDateString(3), emoji: '🎵', type: 'want' },
+  { id: '9', description: 'Birthday gift for friend', amount: 300, category: 'shopping', date: getDateString(4), emoji: '🎁', type: 'want' },
+  { id: '10', description: 'Metro fare', amount: 40, category: 'transport', date: getDateString(5), emoji: '🚇', type: 'need' },
+  { id: '11', description: 'Momos', amount: 60, category: 'food', date: getDateString(5), emoji: '🥟', type: 'want' },
+  { id: '12', description: 'Online course', amount: 199, category: 'education', date: getDateString(6), emoji: '💻', type: 'need' },
 ];
 
 export const mockSubscriptions: Subscription[] = [
