@@ -6,25 +6,17 @@ import { WeeklySpendingReport } from '@/components/WeeklySpendingReport';
 import { EditProfileSheet } from '@/components/EditProfileSheet';
 import { formatCurrency } from '@/data/mockData';
 import { cn } from '@/lib/utils';
-import { 
-  User, 
-  Shield, 
-  Bell, 
-  HelpCircle,
-  LogOut,
-  ChevronRight,
-  Pencil,
-  Mail,
-  Lock
-} from 'lucide-react';
+import { User, Shield, Bell, HelpCircle, LogOut, ChevronRight, Pencil, Mail, Lock } from 'lucide-react';
 import { toast } from 'sonner';
-
 export const Profile = () => {
-  const { user, updateProfile, resetOnboarding } = useUser();
+  const {
+    user,
+    updateProfile,
+    resetOnboarding
+  } = useUser();
   const [parentAccess, setParentAccess] = useState(!!user?.parentEmail);
   const [notifications, setNotifications] = useState(true);
   const [showEditSheet, setShowEditSheet] = useState(false);
-
   const handleParentAccessToggle = () => {
     const newValue = !parentAccess;
     setParentAccess(newValue);
@@ -37,19 +29,12 @@ export const Profile = () => {
       toast.success('Parent sharing disabled');
     }
   };
-
-  return (
-    <div className="min-h-screen bg-background pb-24">
+  return <div className="min-h-screen bg-background pb-24">
       {/* Header */}
       <header className="gradient-hero px-6 pt-8 pb-6">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold text-foreground">My Account</h1>
-          <Button 
-            variant="ghost" 
-            size="icon"
-            onClick={() => setShowEditSheet(true)}
-            className="text-primary"
-          >
+          <Button variant="ghost" size="icon" onClick={() => setShowEditSheet(true)} className="text-primary">
             <Pencil className="w-5 h-5" />
           </Button>
         </div>
@@ -64,12 +49,10 @@ export const Profile = () => {
               <p className="text-xl font-bold text-foreground">{user?.name || 'You'}</p>
               <p className="text-muted-foreground">{user?.age} years old</p>
             </div>
-            {user?.streak && user.streak > 0 && (
-              <div className="text-center">
+            {user?.streak && user.streak > 0 && <div className="text-center">
                 <p className="text-2xl">🔥</p>
                 <p className="text-xs font-bold text-accent">{user.streak} days</p>
-              </div>
-            )}
+              </div>}
           </div>
           
           {/* Quick Stats */}
@@ -108,24 +91,13 @@ export const Profile = () => {
                 <Mail className="w-5 h-5 text-success" />
               </div>
               <div className="flex-1">
-                <p className="font-semibold text-foreground">Share Weekly Summary</p>
+                <p className="font-semibold text-foreground">Share Weekly SUmmary</p>
                 <p className="text-sm text-muted-foreground">
-                  {user?.parentEmail 
-                    ? `Sending to ${user.parentEmail}`
-                    : 'Add parent email to enable'}
+                  {user?.parentEmail ? `Sending to ${user.parentEmail}` : 'Add parent email to enable'}
                 </p>
               </div>
-              <button
-                onClick={handleParentAccessToggle}
-                className={cn(
-                  "w-12 h-7 rounded-full transition-all duration-200 relative",
-                  parentAccess && user?.parentEmail ? "bg-primary" : "bg-secondary"
-                )}
-              >
-                <div className={cn(
-                  "absolute top-1 w-5 h-5 rounded-full bg-card shadow-sm transition-all duration-200",
-                  parentAccess && user?.parentEmail ? "left-6" : "left-1"
-                )} />
+              <button onClick={handleParentAccessToggle} className={cn("w-12 h-7 rounded-full transition-all duration-200 relative", parentAccess && user?.parentEmail ? "bg-primary" : "bg-secondary")}>
+                <div className={cn("absolute top-1 w-5 h-5 rounded-full bg-card shadow-sm transition-all duration-200", parentAccess && user?.parentEmail ? "left-6" : "left-1")} />
               </button>
             </div>
           </div>
@@ -163,20 +135,11 @@ export const Profile = () => {
                 <p className="font-semibold text-foreground">Notifications</p>
                 <p className="text-sm text-muted-foreground">Spending alerts & reminders</p>
               </div>
-              <button
-                onClick={() => {
-                  setNotifications(!notifications);
-                  toast.success(notifications ? 'Notifications off' : 'Notifications on');
-                }}
-                className={cn(
-                  "w-12 h-7 rounded-full transition-all duration-200 relative",
-                  notifications ? "bg-primary" : "bg-secondary"
-                )}
-              >
-                <div className={cn(
-                  "absolute top-1 w-5 h-5 rounded-full bg-card shadow-sm transition-all duration-200",
-                  notifications ? "left-6" : "left-1"
-                )} />
+              <button onClick={() => {
+              setNotifications(!notifications);
+              toast.success(notifications ? 'Notifications off' : 'Notifications on');
+            }} className={cn("w-12 h-7 rounded-full transition-all duration-200 relative", notifications ? "bg-primary" : "bg-secondary")}>
+                <div className={cn("absolute top-1 w-5 h-5 rounded-full bg-card shadow-sm transition-all duration-200", notifications ? "left-6" : "left-1")} />
               </button>
             </div>
           </div>
@@ -218,27 +181,23 @@ export const Profile = () => {
         </div>
 
         {/* Reset Button */}
-        <Button
-          variant="ghost"
-          className="w-full text-destructive hover:bg-destructive/10"
-          onClick={() => {
-            if (confirm('This will erase all your data. Are you sure?')) {
-              resetOnboarding();
-            }
-          }}
-        >
+        <Button variant="ghost" className="w-full text-destructive hover:bg-destructive/10" onClick={() => {
+        if (confirm('This will erase all your data. Are you sure?')) {
+          resetOnboarding();
+        }
+      }}>
           <LogOut className="w-5 h-5" />
           Start Fresh
         </Button>
 
         {/* Version */}
-        <p className="text-center text-sm text-muted-foreground">
-          Plume v1.0 • Made with 💚
-        </p>
+        <p className="text-center text-sm text-muted-foreground">Plume v1.0 • Made with 💚
+BUILT FOR THE WORLD, FROM RANCHI, INDIA
+
+      </p>
       </main>
 
       <EditProfileSheet open={showEditSheet} onOpenChange={setShowEditSheet} />
       <BottomNav />
-    </div>
-  );
+    </div>;
 };
