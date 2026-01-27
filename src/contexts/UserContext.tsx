@@ -12,6 +12,7 @@ interface UserContextType {
   isOnboarded: boolean;
   user: UserProfile | null;
   completeOnboarding: (data: OnboardingData) => void;
+  updateProfile: (updates: Partial<UserProfile>) => void;
   resetOnboarding: () => void;
 }
 
@@ -46,6 +47,13 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem('plume_user', JSON.stringify(newUser));
   };
 
+  const updateProfile = (updates: Partial<UserProfile>) => {
+    if (!user) return;
+    const updatedUser = { ...user, ...updates };
+    setUser(updatedUser);
+    localStorage.setItem('plume_user', JSON.stringify(updatedUser));
+  };
+
   const resetOnboarding = () => {
     setIsOnboarded(false);
     setUser(null);
@@ -54,7 +62,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <UserContext.Provider value={{ isOnboarded, user, completeOnboarding, resetOnboarding }}>
+    <UserContext.Provider value={{ isOnboarded, user, completeOnboarding, updateProfile, resetOnboarding }}>
       {children}
     </UserContext.Provider>
   );

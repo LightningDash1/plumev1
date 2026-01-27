@@ -22,7 +22,7 @@ import {
   generateInsight,
   getDaysUntil
 } from '@/data/mockData';
-import { ArrowRight, Bell } from 'lucide-react';
+import { ArrowRight, Bell, User } from 'lucide-react';
 
 export const Home = () => {
   const { user } = useUser();
@@ -53,7 +53,14 @@ export const Home = () => {
             <p className="text-muted-foreground font-medium">Good morning 👋</p>
             <h1 className="text-2xl font-bold text-foreground">{user?.name || 'Friend'}</h1>
           </div>
-          <SpendingStreak key={refreshKey} />
+          <div className="flex items-center gap-2">
+            <SpendingStreak key={refreshKey} />
+            <Link to="/profile">
+              <Button variant="ghost" size="icon" className="rounded-full bg-card/50">
+                <User className="w-5 h-5 text-foreground" />
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {/* Today's Spending Card */}
