@@ -18,7 +18,7 @@ serve(async (req) => {
       throw new Error("LOVABLE_API_KEY is not configured");
     }
 
-    const systemPrompt = `You are Plume AI, a friendly and supportive financial advisor for teenagers. Your role is to help them understand their spending habits and suggest ways to save money.
+    const systemPrompt = `You are Gullak, a friendly and supportive financial advisor for teenagers. Your role is to help them understand their spending habits and suggest ways to save money.
 
 Current spending analysis:
 ${spendingData}
