@@ -33,15 +33,18 @@ const App = () => {
     sessionStorage.setItem('plume-splash-seen', 'true');
   };
 
+  if (showSplash && !hasSeenSplash) {
+    return (
+      <SplashScreen onComplete={handleSplashComplete} />
+    );
+  }
+
   return (
     <QueryClientProvider client={queryClient}>
       <UserProvider>
         <TooltipProvider>
           <Toaster />
           <Sonner />
-          {showSplash && !hasSeenSplash && (
-            <SplashScreen onComplete={handleSplashComplete} />
-          )}
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
