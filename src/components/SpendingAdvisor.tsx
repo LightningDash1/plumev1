@@ -179,7 +179,7 @@ export const SpendingAdvisor = () => {
             <Bot className="h-4 w-4 text-primary" />
           </div>
           <div>
-            <h3 className="font-semibold text-foreground">Plume AI</h3>
+            <h3 className="font-semibold text-foreground">Gullak</h3>
             <p className="text-xs text-muted-foreground">Your spending advisor</p>
           </div>
         </div>
@@ -195,7 +195,7 @@ export const SpendingAdvisor = () => {
             <div className="bg-muted/50 rounded-2xl p-4 text-sm">
               <p className="text-foreground font-medium mb-2">👋 Hey there!</p>
               <p className="text-muted-foreground">
-                I'm Plume AI, your personal spending advisor. I've analyzed your recent transactions and can help you find ways to save money!
+                I'm Gullak, your personal spending advisor. I've analyzed your recent transactions and can help you find ways to save money!
               </p>
             </div>
             <div className="space-y-2">
