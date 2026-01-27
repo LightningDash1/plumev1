@@ -191,10 +191,8 @@ export const Profile = () => {
         </Button>
 
         {/* Version */}
-        <p className="text-center text-sm text-muted-foreground">Plume v1.0 • Made with 💚
-BUILT FOR THE WORLD, FROM RANCHI, INDIA
-
-      </p>
+        <p className="text-center text-sm text-muted-foreground">Plume v1.0 • Made with 💚 
+BUILT FOR THE WORLD, FROM RANCHI, INDIA</p>
       </main>
 
       <EditProfileSheet open={showEditSheet} onOpenChange={setShowEditSheet} />
