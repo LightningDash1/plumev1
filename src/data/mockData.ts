@@ -63,11 +63,18 @@ export let mockTransactions: Transaction[] = [
   { id: '12', description: 'Online course', amount: 199, category: 'education', date: getDateString(6), emoji: '💻', type: 'need' },
 ];
 
+// Helper to get future date strings
+const getFutureDateString = (daysAhead: number): string => {
+  const date = new Date();
+  date.setDate(date.getDate() + daysAhead);
+  return date.toISOString().split('T')[0];
+};
+
 export const mockSubscriptions: Subscription[] = [
-  { id: '1', name: 'Spotify', amount: 119, renewalDate: '2026-01-20', logo: '🎵', category: 'Music' },
-  { id: '2', name: 'Netflix', amount: 199, renewalDate: '2026-01-25', logo: '📺', category: 'Entertainment' },
-  { id: '3', name: 'YouTube Premium', amount: 129, renewalDate: '2026-01-30', logo: '▶️', category: 'Entertainment' },
-  { id: '4', name: 'Discord Nitro', amount: 499, renewalDate: '2026-02-05', logo: '💬', category: 'Social' },
+  { id: '1', name: 'Spotify', amount: 119, renewalDate: getFutureDateString(3), logo: '🎵', category: 'Music' },
+  { id: '2', name: 'Netflix', amount: 199, renewalDate: getFutureDateString(8), logo: '📺', category: 'Entertainment' },
+  { id: '3', name: 'YouTube Premium', amount: 129, renewalDate: getFutureDateString(15), logo: '▶️', category: 'Entertainment' },
+  { id: '4', name: 'Discord Nitro', amount: 499, renewalDate: getFutureDateString(22), logo: '💬', category: 'Social' },
 ];
 
 export const mockSavingsGoals: SavingsGoal[] = [
