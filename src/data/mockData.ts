@@ -47,6 +47,13 @@ const getDateString = (daysAgo: number): string => {
   return date.toISOString().split('T')[0];
 };
 
+// Helper to get date strings from last month
+const getLastMonthDateString = (dayOfMonth: number): string => {
+  const now = new Date();
+  const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, dayOfMonth);
+  return lastMonth.toISOString().split('T')[0];
+};
+
 // Mutable transactions array for adding new expenses
 export let mockTransactions: Transaction[] = [
   // This week
@@ -74,6 +81,25 @@ export let mockTransactions: Transaction[] = [
   { id: '20', description: 'Cafe with friends', amount: 180, category: 'food', date: getDateString(20), emoji: '☕', type: 'want' },
   { id: '21', description: 'Concert tickets', amount: 800, category: 'entertainment', date: getDateString(22), emoji: '🎤', type: 'want' },
   { id: '22', description: 'Sneakers', amount: 1200, category: 'shopping', date: getDateString(25), emoji: '👟', type: 'want' },
+  
+  // LAST MONTH TRANSACTIONS
+  { id: '23', description: 'Monthly groceries', amount: 850, category: 'food', date: getLastMonthDateString(5), emoji: '🛒', type: 'need' },
+  { id: '24', description: 'Dosa & Coffee', amount: 120, category: 'food', date: getLastMonthDateString(7), emoji: '🥞', type: 'want' },
+  { id: '25', description: 'Cinema with family', amount: 600, category: 'entertainment', date: getLastMonthDateString(8), emoji: '🎬', type: 'want' },
+  { id: '26', description: 'Metro card recharge', amount: 500, category: 'transport', date: getLastMonthDateString(10), emoji: '🚇', type: 'need' },
+  { id: '27', description: 'New jeans', amount: 1299, category: 'shopping', date: getLastMonthDateString(12), emoji: '👖', type: 'want' },
+  { id: '28', description: 'Birthday party food', amount: 450, category: 'food', date: getLastMonthDateString(14), emoji: '🎂', type: 'want' },
+  { id: '29', description: 'YouTube Premium', amount: 129, category: 'subscription', date: getLastMonthDateString(15), emoji: '▶️', type: 'want' },
+  { id: '30', description: 'Uber rides', amount: 380, category: 'transport', date: getLastMonthDateString(16), emoji: '🚗', type: 'need' },
+  { id: '31', description: 'Gaming accessories', amount: 750, category: 'entertainment', date: getLastMonthDateString(18), emoji: '🎮', type: 'want' },
+  { id: '32', description: 'Tuition fees', amount: 2000, category: 'education', date: getLastMonthDateString(20), emoji: '📚', type: 'need' },
+  { id: '33', description: 'Street food', amount: 180, category: 'food', date: getLastMonthDateString(21), emoji: '🌮', type: 'want' },
+  { id: '34', description: 'Phone cover', amount: 399, category: 'shopping', date: getLastMonthDateString(23), emoji: '📱', type: 'want' },
+  { id: '35', description: 'Auto to coaching', amount: 200, category: 'transport', date: getLastMonthDateString(24), emoji: '🛺', type: 'need' },
+  { id: '36', description: 'Cafe study session', amount: 350, category: 'food', date: getLastMonthDateString(25), emoji: '☕', type: 'want' },
+  { id: '37', description: 'Spotify Premium', amount: 119, category: 'subscription', date: getLastMonthDateString(26), emoji: '🎵', type: 'want' },
+  { id: '38', description: 'Bowling night', amount: 400, category: 'entertainment', date: getLastMonthDateString(27), emoji: '🎳', type: 'want' },
+  { id: '39', description: 'Stationery', amount: 250, category: 'education', date: getLastMonthDateString(28), emoji: '✏️', type: 'need' },
 ];
 
 // Helper to get future date strings
