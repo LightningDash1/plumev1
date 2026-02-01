@@ -10,6 +10,7 @@ import { NeedVsWantChart } from '@/components/NeedVsWantChart';
 import { MicroInsights } from '@/components/MicroInsights';
 import { SpendingStreak, updateLoggingStreak } from '@/components/SpendingStreak';
 import { TransactionItem } from '@/components/TransactionItem';
+import { LastMonthOverview } from '@/components/LastMonthOverview';
 import { Button } from '@/components/ui/button';
 import { useUser } from '@/contexts/UserContext';
 import { 
@@ -112,6 +113,9 @@ export const Home = () => {
 
         {/* Need vs Want Chart */}
         <NeedVsWantChart key={refreshKey} />
+
+        {/* Last Month Overview */}
+        <LastMonthOverview />
 
         {/* Weekly Chart */}
         <SpendingChart />
