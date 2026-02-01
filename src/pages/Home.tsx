@@ -13,38 +13,25 @@ import { TransactionItem } from '@/components/TransactionItem';
 import { LastMonthOverview } from '@/components/LastMonthOverview';
 import { Button } from '@/components/ui/button';
 import { useUser } from '@/contexts/UserContext';
-import { 
-  mockTransactions, 
-  mockSubscriptions,
-  formatCurrency, 
-  getTodaySpending, 
-  getWeeklySpending,
-  getMonthlySpending,
-  generateInsight,
-  getDaysUntil
-} from '@/data/mockData';
+import { mockTransactions, mockSubscriptions, formatCurrency, getTodaySpending, getWeeklySpending, getMonthlySpending, generateInsight, getDaysUntil } from '@/data/mockData';
 import { ArrowRight, Bell, User } from 'lucide-react';
-
 export const Home = () => {
-  const { user } = useUser();
+  const {
+    user
+  } = useUser();
   const [refreshKey, setRefreshKey] = useState(0);
-  
   const todaySpending = getTodaySpending();
   const weeklySpending = getWeeklySpending();
   const monthlySpending = getMonthlySpending();
   const insight = generateInsight();
   const today = new Date().toISOString().split('T')[0];
   const todayTransactions = mockTransactions.filter(t => t.date === today);
-  
   const urgentSubs = mockSubscriptions.filter(s => getDaysUntil(s.renewalDate) <= 3);
-
   const handleExpenseAdded = () => {
     updateLoggingStreak();
     setRefreshKey(prev => prev + 1);
   };
-
-  return (
-    <div className="min-h-screen bg-background pb-24">
+  return <div className="min-h-screen bg-background pb-24">
       <WeeklyReflection />
       
       {/* Header */}
@@ -76,7 +63,7 @@ export const Home = () => {
               <span className="font-bold text-foreground">{formatCurrency(weeklySpending)}</span>
             </div>
             <div>
-              <span>This month: </span>
+              <span>Last month: </span>
               <span className="font-bold text-foreground">{formatCurrency(monthlySpending)}</span>
             </div>
           </div>
@@ -92,8 +79,7 @@ export const Home = () => {
         <InsightCard text={insight.text} emoji={insight.emoji} />
 
         {/* Subscription Alert */}
-        {urgentSubs.length > 0 && (
-          <Link to="/expenses" className="block">
+        {urgentSubs.length > 0 && <Link to="/expenses" className="block">
             <div className="bg-warning-soft rounded-2xl p-4 flex items-center gap-3 animate-slide-up">
               <div className="w-10 h-10 rounded-xl bg-warning/20 flex items-center justify-center">
                 <Bell className="w-5 h-5 text-warning" />
@@ -108,8 +94,7 @@ export const Home = () => {
               </div>
               <ArrowRight className="w-5 h-5 text-muted-foreground" />
             </div>
-          </Link>
-        )}
+          </Link>}
 
         {/* Need vs Want Chart */}
         <NeedVsWantChart key={refreshKey} />
@@ -132,15 +117,9 @@ export const Home = () => {
             </Link>
           </div>
           <div className="space-y-2">
-            {todayTransactions.length > 0 ? (
-              todayTransactions.slice(0, 3).map(transaction => (
-                <TransactionItem key={transaction.id} transaction={transaction} />
-              ))
-            ) : (
-              <div className="bg-card rounded-xl p-6 text-center">
+            {todayTransactions.length > 0 ? todayTransactions.slice(0, 3).map(transaction => <TransactionItem key={transaction.id} transaction={transaction} />) : <div className="bg-card rounded-xl p-6 text-center">
                 <p className="text-muted-foreground">No spending today yet 🎉</p>
-              </div>
-            )}
+              </div>}
           </div>
         </div>
       </main>
@@ -148,6 +127,5 @@ export const Home = () => {
       <QuickAddExpense onExpenseAdded={handleExpenseAdded} />
       <SpendingAdvisor />
       <BottomNav />
-    </div>
-  );
+    </div>;
 };
