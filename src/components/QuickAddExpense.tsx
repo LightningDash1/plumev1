@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Plus, X, Sparkles } from 'lucide-react';
+import { Plus, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -20,7 +20,7 @@ import {
   getCategoryEmoji,
 } from '@/data/mockData';
 import { cn } from '@/lib/utils';
-import { toast } from 'sonner';
+import { SpendingImpactPreview } from './SpendingImpactPreview';
 
 interface QuickAddExpenseProps {
   onExpenseAdded?: () => void;
@@ -33,8 +33,8 @@ export const QuickAddExpense = ({ onExpenseAdded }: QuickAddExpenseProps) => {
   const [category, setCategory] = useState<Category>('other');
   const [isWant, setIsWant] = useState(true);
   const [suggestedCategory, setSuggestedCategory] = useState<Category | null>(null);
-
-  // Smart category suggestion based on note
+  const [showImpactPreview, setShowImpactPreview] = useState(false);
+  const [lastTransactionAmount, setLastTransactionAmount] = useState(0);
   useEffect(() => {
     if (note.length > 2) {
       const suggestion = suggestCategory(note);
@@ -50,13 +50,14 @@ export const QuickAddExpense = ({ onExpenseAdded }: QuickAddExpenseProps) => {
 
   const handleSubmit = () => {
     if (!amount || parseFloat(amount) <= 0) {
-      toast.error('Please enter a valid amount');
       return;
     }
 
-    const transaction = addTransaction({
+    const transactionAmount = parseFloat(amount);
+
+    addTransaction({
       description: note || categoryInfo[category].label,
-      amount: parseFloat(amount),
+      amount: transactionAmount,
       category,
       date: new Date().toISOString().split('T')[0],
       emoji: getCategoryEmoji(category),
@@ -64,10 +65,10 @@ export const QuickAddExpense = ({ onExpenseAdded }: QuickAddExpenseProps) => {
       note,
     });
 
-    toast.success(
-      `${formatCurrency(transaction.amount)} added to ${categoryInfo[category].label} ${getCategoryEmoji(category)}`,
-      { duration: 2000 }
-    );
+    // Store amount and show impact preview
+    setLastTransactionAmount(transactionAmount);
+    setOpen(false);
+    setShowImpactPreview(true);
 
     // Reset form
     setAmount('');
@@ -75,7 +76,10 @@ export const QuickAddExpense = ({ onExpenseAdded }: QuickAddExpenseProps) => {
     setCategory('other');
     setIsWant(true);
     setSuggestedCategory(null);
-    setOpen(false);
+  };
+
+  const handleImpactClose = () => {
+    setShowImpactPreview(false);
     onExpenseAdded?.();
   };
 
@@ -198,6 +202,14 @@ export const QuickAddExpense = ({ onExpenseAdded }: QuickAddExpenseProps) => {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Spending Impact Preview */}
+      {showImpactPreview && (
+        <SpendingImpactPreview
+          transactionAmount={lastTransactionAmount}
+          onClose={handleImpactClose}
+        />
+      )}
     </>
   );
 };
