@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { BottomNav } from '@/components/BottomNav';
 import { MoneyTermCard } from '@/components/MoneyTermCard';
 import { MoneyMyths } from '@/components/MoneyMyths';
 import { MiniQuiz } from '@/components/MiniQuiz';
 import { financeTerms, FinanceTerm } from '@/data/mockData';
-import { BookOpen, Sparkles, Brain, ChevronRight } from 'lucide-react';
+import { BookOpen, Sparkles, Brain, ChevronRight, Receipt } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type Tab = 'today' | 'library' | 'myths';
 
 export const Learn = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<Tab>('today');
   const [viewedTerms, setViewedTerms] = useState<string[]>([]);
   const [showQuiz, setShowQuiz] = useState(false);
@@ -90,6 +92,21 @@ export const Learn = () => {
                 onView={() => markTermAsViewed(todayTerm.id)}
               />
             </div>
+
+            {/* Tax Explorer Entry */}
+            <button
+              onClick={() => navigate('/tax-explorer')}
+              className="w-full bg-card rounded-2xl p-4 shadow-soft flex items-center gap-3 text-left hover:shadow-elevated transition-shadow"
+            >
+              <div className="w-10 h-10 rounded-xl bg-accent-soft flex items-center justify-center">
+                <Receipt className="w-5 h-5 text-accent" />
+              </div>
+              <div className="flex-1">
+                <p className="text-sm font-bold text-foreground">Tax Explorer 🧾</p>
+                <p className="text-xs text-muted-foreground">See where your tax money really goes</p>
+              </div>
+              <ChevronRight className="w-4 h-4 text-muted-foreground" />
+            </button>
 
             {/* Progress */}
             <div className="bg-card rounded-2xl p-4 shadow-soft">
