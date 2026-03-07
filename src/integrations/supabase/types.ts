@@ -14,7 +14,156 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          age: number
+          created_at: string
+          id: string
+          is_onboarded: boolean
+          last_log_date: string | null
+          monthly_allowance: number
+          name: string
+          parent_email: string | null
+          streak: number
+          top_categories: string[]
+          updated_at: string
+        }
+        Insert: {
+          age?: number
+          created_at?: string
+          id: string
+          is_onboarded?: boolean
+          last_log_date?: string | null
+          monthly_allowance?: number
+          name?: string
+          parent_email?: string | null
+          streak?: number
+          top_categories?: string[]
+          updated_at?: string
+        }
+        Update: {
+          age?: number
+          created_at?: string
+          id?: string
+          is_onboarded?: boolean
+          last_log_date?: string | null
+          monthly_allowance?: number
+          name?: string
+          parent_email?: string | null
+          streak?: number
+          top_categories?: string[]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      savings_goals: {
+        Row: {
+          created_at: string
+          current: number
+          emoji: string
+          id: string
+          name: string
+          target: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          current?: number
+          emoji?: string
+          id?: string
+          name: string
+          target: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          current?: number
+          emoji?: string
+          id?: string
+          name?: string
+          target?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      subscriptions: {
+        Row: {
+          amount: number
+          billing_frequency: string
+          category: string
+          created_at: string
+          id: string
+          is_active: boolean
+          logo: string
+          name: string
+          renewal_date: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          billing_frequency?: string
+          category?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          logo?: string
+          name: string
+          renewal_date: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          billing_frequency?: string
+          category?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          logo?: string
+          name?: string
+          renewal_date?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      transactions: {
+        Row: {
+          amount: number
+          category: string
+          created_at: string
+          date: string
+          description: string
+          emoji: string
+          id: string
+          note: string | null
+          type: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          category?: string
+          created_at?: string
+          date?: string
+          description: string
+          emoji?: string
+          id?: string
+          note?: string | null
+          type?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          category?: string
+          created_at?: string
+          date?: string
+          description?: string
+          emoji?: string
+          id?: string
+          note?: string | null
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
