@@ -4,7 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { UserProvider } from "./contexts/UserContext";
+import { AuthProvider } from "./contexts/AuthContext";
 import { SplashScreen } from "./components/SplashScreen";
 import Index from "./pages/Index";
 import { Expenses } from "./pages/Expenses";
@@ -12,6 +12,7 @@ import { Goals } from "./pages/Goals";
 import { Profile } from "./pages/Profile";
 import { Learn } from "./pages/Learn";
 import { TaxExplorer } from "./pages/TaxExplorer";
+import { ResetPassword } from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -35,14 +36,12 @@ const App = () => {
   };
 
   if (showSplash && !hasSeenSplash) {
-    return (
-      <SplashScreen onComplete={handleSplashComplete} />
-    );
+    return <SplashScreen onComplete={handleSplashComplete} />;
   }
 
   return (
     <QueryClientProvider client={queryClient}>
-      <UserProvider>
+      <AuthProvider>
         <TooltipProvider>
           <Toaster />
           <Sonner />
@@ -54,11 +53,12 @@ const App = () => {
               <Route path="/profile" element={<Profile />} />
               <Route path="/learn" element={<Learn />} />
               <Route path="/tax-explorer" element={<TaxExplorer />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
         </TooltipProvider>
-      </UserProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 };
