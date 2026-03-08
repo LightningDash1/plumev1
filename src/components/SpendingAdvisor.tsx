@@ -104,7 +104,7 @@ export const SpendingAdvisor = () => {
 
   if (!isOpen) {
     return (
-      <Button onClick={() => setIsOpen(true)} className="fixed bottom-24 right-4 h-14 w-14 rounded-full bg-gradient-to-r from-primary to-accent shadow-elevated z-50" size="icon">
+      <Button onClick={() => setIsOpen(true)} className="fixed bottom-[6.5rem] right-4 h-12 w-12 rounded-full bg-gradient-to-r from-primary to-accent shadow-elevated z-50" size="icon">
         <Sparkles className="h-6 w-6 text-white" />
       </Button>
     );

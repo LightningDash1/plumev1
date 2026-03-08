@@ -107,7 +107,7 @@ export const QuickAddExpense = ({ onExpenseAdded, addTransaction }: QuickAddExpe
     <>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <button className="fixed bottom-24 left-1/2 -translate-x-1/2 z-40 w-14 h-14 rounded-full gradient-primary shadow-primary flex items-center justify-center hover:scale-110 transition-transform">
+          <button className="fixed bottom-[5.5rem] left-1/2 -translate-x-1/2 z-40 w-14 h-14 rounded-full gradient-primary shadow-primary flex items-center justify-center hover:scale-110 transition-transform">
             <Plus className="w-7 h-7 text-primary-foreground" />
           </button>
         </DialogTrigger>
