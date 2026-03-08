@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -8,23 +7,34 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import {
-  getTopCategoryThisWeek,
   categoryInfo,
   formatCurrency,
-  reflectionQuestions,
+  Category,
 } from '@/data/mockData';
+import { useTransactions } from '@/hooks/useTransactions';
+
+const reflectionQuestions = [
+  "Was there any spending this week you wish you could undo?",
+  "What's one thing you're proud of this week money-wise?",
+  "Did you spend on something that made you truly happy?",
+  "Is there something you wanted to buy but decided to wait?",
+  "What would you do differently next week?",
+];
 
 export const WeeklyReflection = () => {
+  const { transactions, getWeeklySpending, getSpendingByCategory } = useTransactions();
   const [show, setShow] = useState(false);
-  const topCategory = getTopCategoryThisWeek();
+
+  const spending = getSpendingByCategory();
+  const entries = Object.entries(spending) as [Category, number][];
+  const sorted = entries.sort((a, b) => b[1] - a[1]);
+  const topCategory = sorted[0] && sorted[0][1] > 0 ? { category: sorted[0][0], amount: sorted[0][1] } : null;
 
   useEffect(() => {
-    // Check if we should show the weekly reflection
     const lastShown = localStorage.getItem('plume_last_reflection');
     const today = new Date();
     const dayOfWeek = today.getDay();
-    
-    // Show on Sunday (0) if not shown this week
+
     if (dayOfWeek === 0) {
       if (!lastShown) {
         setShow(true);
@@ -43,7 +53,6 @@ export const WeeklyReflection = () => {
     localStorage.setItem('plume_last_reflection', new Date().toISOString());
   };
 
-  // Get a consistent reflection question for the week
   const questionIndex = Math.floor(Date.now() / (7 * 24 * 60 * 60 * 1000)) % reflectionQuestions.length;
   const reflectionQuestion = reflectionQuestions[questionIndex];
 
@@ -57,9 +66,8 @@ export const WeeklyReflection = () => {
             Weekly Check-in 🌟
           </DialogTitle>
         </DialogHeader>
-        
+
         <div className="space-y-6 py-4">
-          {/* Top Category */}
           <div className="bg-primary-soft rounded-2xl p-5 text-center">
             <p className="text-sm text-muted-foreground mb-2">Your top spending this week</p>
             <div className="flex items-center justify-center gap-3">
@@ -75,13 +83,11 @@ export const WeeklyReflection = () => {
             </div>
           </div>
 
-          {/* Reflection Question */}
           <div className="bg-accent-soft rounded-2xl p-5">
             <p className="text-sm text-muted-foreground mb-2">Time to reflect 💭</p>
             <p className="text-lg font-semibold text-foreground">{reflectionQuestion}</p>
           </div>
 
-          {/* Encouragement */}
           <p className="text-center text-muted-foreground text-sm">
             No right or wrong answers - just awareness! 🧘
           </p>
