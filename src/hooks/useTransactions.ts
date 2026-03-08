@@ -16,7 +16,7 @@ export interface DbTransaction {
 }
 
 export const useTransactions = () => {
-  const { user } = useAuth();
+  const { user, updateProfile, profile } = useAuth();
   const [transactions, setTransactions] = useState<DbTransaction[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -44,6 +44,27 @@ export const useTransactions = () => {
   useEffect(() => {
     fetchTransactions();
   }, [fetchTransactions]);
+
+  const updateStreak = useCallback(async () => {
+    if (!user || !profile) return;
+    const today = new Date().toISOString().split('T')[0];
+    const lastLog = profile.last_log_date;
+
+    if (lastLog === today) return; // Already logged today
+
+    let newStreak = 1;
+    if (lastLog) {
+      const lastDate = new Date(lastLog);
+      const todayDate = new Date(today);
+      const diffDays = Math.floor((todayDate.getTime() - lastDate.getTime()) / (1000 * 60 * 60 * 24));
+      if (diffDays === 1) {
+        newStreak = (profile.streak || 0) + 1;
+      }
+      // If diffDays > 1, streak resets to 1
+    }
+
+    await updateProfile({ streak: newStreak, last_log_date: today });
+  }, [user, profile, updateProfile]);
 
   const addTransaction = async (tx: {
     description: string;
@@ -78,6 +99,8 @@ export const useTransactions = () => {
         type: (data.type || 'want') as SpendingType,
       };
       setTransactions(prev => [newTx, ...prev]);
+      // Update streak
+      await updateStreak();
       return newTx;
     }
     return null;

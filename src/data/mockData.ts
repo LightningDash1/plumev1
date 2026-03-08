@@ -12,124 +12,6 @@ export interface Transaction {
   note?: string;
 }
 
-export interface Subscription {
-  id: string;
-  name: string;
-  amount: number;
-  renewalDate: string;
-  logo: string;
-  category: string;
-}
-
-export interface SavingsGoal {
-  id: string;
-  name: string;
-  target: number;
-  current: number;
-  emoji: string;
-  createdAt: string;
-}
-
-export interface UserProfile {
-  name: string;
-  age: number;
-  monthlyAllowance: number;
-  topCategories: Category[];
-  parentEmail?: string;
-  streak: number;
-  lastLogDate?: string;
-}
-
-// Helper to get date strings relative to today
-const getDateString = (daysAgo: number): string => {
-  const date = new Date();
-  date.setDate(date.getDate() - daysAgo);
-  return date.toISOString().split('T')[0];
-};
-
-// Helper to get date strings from last month
-const getLastMonthDateString = (dayOfMonth: number): string => {
-  const now = new Date();
-  const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, dayOfMonth);
-  return lastMonth.toISOString().split('T')[0];
-};
-
-// Mutable transactions array for adding new expenses
-export let mockTransactions: Transaction[] = [
-  // This week
-  { id: '1', description: 'Chai & Samosa', amount: 45, category: 'food', date: getDateString(0), emoji: '☕', type: 'want' },
-  { id: '2', description: 'Bus Pass', amount: 150, category: 'transport', date: getDateString(0), emoji: '🚌', type: 'need' },
-  { id: '3', description: 'Maggi at canteen', amount: 30, category: 'food', date: getDateString(1), emoji: '🍜', type: 'want' },
-  { id: '4', description: 'Notebook & Pens', amount: 120, category: 'education', date: getDateString(1), emoji: '📓', type: 'need' },
-  { id: '5', description: 'Ice cream with friends', amount: 80, category: 'food', date: getDateString(2), emoji: '🍦', type: 'want' },
-  { id: '6', description: 'Auto to tuition', amount: 60, category: 'transport', date: getDateString(2), emoji: '🛺', type: 'need' },
-  { id: '7', description: 'Movie with friends', amount: 250, category: 'entertainment', date: getDateString(3), emoji: '🎬', type: 'want' },
-  { id: '8', description: 'Spotify', amount: 59, category: 'subscription', date: getDateString(3), emoji: '🎵', type: 'want' },
-  { id: '9', description: 'Birthday gift for friend', amount: 300, category: 'shopping', date: getDateString(4), emoji: '🎁', type: 'want' },
-  { id: '10', description: 'Metro fare', amount: 40, category: 'transport', date: getDateString(5), emoji: '🚇', type: 'need' },
-  { id: '11', description: 'Momos', amount: 60, category: 'food', date: getDateString(5), emoji: '🥟', type: 'want' },
-  { id: '12', description: 'Online course', amount: 199, category: 'education', date: getDateString(6), emoji: '💻', type: 'need' },
-  // Last week (8-14 days ago)
-  { id: '13', description: 'Pizza party', amount: 350, category: 'food', date: getDateString(8), emoji: '🍕', type: 'want' },
-  { id: '14', description: 'New T-shirt', amount: 499, category: 'shopping', date: getDateString(9), emoji: '👕', type: 'want' },
-  { id: '15', description: 'Uber to mall', amount: 120, category: 'transport', date: getDateString(10), emoji: '🚗', type: 'want' },
-  { id: '16', description: 'Netflix', amount: 199, category: 'subscription', date: getDateString(11), emoji: '📺', type: 'want' },
-  { id: '17', description: 'Burger King', amount: 280, category: 'food', date: getDateString(12), emoji: '🍔', type: 'want' },
-  // Earlier this month (15-25 days ago)
-  { id: '18', description: 'School supplies', amount: 450, category: 'education', date: getDateString(15), emoji: '📚', type: 'need' },
-  { id: '19', description: 'Arcade games', amount: 200, category: 'entertainment', date: getDateString(18), emoji: '🎮', type: 'want' },
-  { id: '20', description: 'Cafe with friends', amount: 180, category: 'food', date: getDateString(20), emoji: '☕', type: 'want' },
-  { id: '21', description: 'Concert tickets', amount: 800, category: 'entertainment', date: getDateString(22), emoji: '🎤', type: 'want' },
-  { id: '22', description: 'Sneakers', amount: 1200, category: 'shopping', date: getDateString(25), emoji: '👟', type: 'want' },
-  
-  // LAST MONTH TRANSACTIONS
-  { id: '23', description: 'Monthly groceries', amount: 850, category: 'food', date: getLastMonthDateString(5), emoji: '🛒', type: 'need' },
-  { id: '24', description: 'Dosa & Coffee', amount: 120, category: 'food', date: getLastMonthDateString(7), emoji: '🥞', type: 'want' },
-  { id: '25', description: 'Cinema with family', amount: 600, category: 'entertainment', date: getLastMonthDateString(8), emoji: '🎬', type: 'want' },
-  { id: '26', description: 'Metro card recharge', amount: 500, category: 'transport', date: getLastMonthDateString(10), emoji: '🚇', type: 'need' },
-  { id: '27', description: 'New jeans', amount: 1299, category: 'shopping', date: getLastMonthDateString(12), emoji: '👖', type: 'want' },
-  { id: '28', description: 'Birthday party food', amount: 450, category: 'food', date: getLastMonthDateString(14), emoji: '🎂', type: 'want' },
-  { id: '29', description: 'YouTube Premium', amount: 129, category: 'subscription', date: getLastMonthDateString(15), emoji: '▶️', type: 'want' },
-  { id: '30', description: 'Uber rides', amount: 380, category: 'transport', date: getLastMonthDateString(16), emoji: '🚗', type: 'need' },
-  { id: '31', description: 'Gaming accessories', amount: 750, category: 'entertainment', date: getLastMonthDateString(18), emoji: '🎮', type: 'want' },
-  { id: '32', description: 'Tuition fees', amount: 2000, category: 'education', date: getLastMonthDateString(20), emoji: '📚', type: 'need' },
-  { id: '33', description: 'Street food', amount: 180, category: 'food', date: getLastMonthDateString(21), emoji: '🌮', type: 'want' },
-  { id: '34', description: 'Phone cover', amount: 399, category: 'shopping', date: getLastMonthDateString(23), emoji: '📱', type: 'want' },
-  { id: '35', description: 'Auto to coaching', amount: 200, category: 'transport', date: getLastMonthDateString(24), emoji: '🛺', type: 'need' },
-  { id: '36', description: 'Cafe study session', amount: 350, category: 'food', date: getLastMonthDateString(25), emoji: '☕', type: 'want' },
-  { id: '37', description: 'Spotify Premium', amount: 119, category: 'subscription', date: getLastMonthDateString(26), emoji: '🎵', type: 'want' },
-  { id: '38', description: 'Bowling night', amount: 400, category: 'entertainment', date: getLastMonthDateString(27), emoji: '🎳', type: 'want' },
-  { id: '39', description: 'Stationery', amount: 250, category: 'education', date: getLastMonthDateString(28), emoji: '✏️', type: 'need' },
-];
-
-// Helper to get future date strings
-const getFutureDateString = (daysAhead: number): string => {
-  const date = new Date();
-  date.setDate(date.getDate() + daysAhead);
-  return date.toISOString().split('T')[0];
-};
-
-export const mockSubscriptions: Subscription[] = [
-  { id: '1', name: 'Spotify', amount: 119, renewalDate: getFutureDateString(3), logo: '🎵', category: 'Music' },
-  { id: '2', name: 'Netflix', amount: 199, renewalDate: getFutureDateString(8), logo: '📺', category: 'Entertainment' },
-  { id: '3', name: 'YouTube Premium', amount: 129, renewalDate: getFutureDateString(15), logo: '▶️', category: 'Entertainment' },
-  { id: '4', name: 'Discord Nitro', amount: 499, renewalDate: getFutureDateString(22), logo: '💬', category: 'Social' },
-];
-
-export const mockSavingsGoals: SavingsGoal[] = [
-  { id: '1', name: 'New Headphones', target: 2500, current: 1800, emoji: '🎧', createdAt: '2025-12-15' },
-  { id: '2', name: 'Birthday Gift', target: 1000, current: 450, emoji: '🎁', createdAt: '2025-12-28' },
-];
-
-export const mockUserProfile: UserProfile = {
-  name: 'Alex',
-  age: 16,
-  monthlyAllowance: 5000,
-  topCategories: ['food', 'shopping', 'entertainment'],
-  streak: 7,
-  lastLogDate: getDateString(0),
-};
-
 // Category display info
 export const categoryInfo: Record<Category, { emoji: string; label: string; color: string }> = {
   food: { emoji: '🍔', label: 'Food & Snacks', color: 'bg-food/15 text-food' },
@@ -143,27 +25,21 @@ export const categoryInfo: Record<Category, { emoji: string; label: string; colo
 
 // Smart category suggestions based on keywords
 export const categorySuggestions: Record<string, Category> = {
-  // Food
   burger: 'food', pizza: 'food', coffee: 'food', starbucks: 'food', mcd: 'food', mcdonalds: 'food',
   kfc: 'food', dominos: 'food', swiggy: 'food', zomato: 'food', lunch: 'food', dinner: 'food',
   breakfast: 'food', snack: 'food', chai: 'food', tea: 'food', juice: 'food', ice: 'food',
   chocolate: 'food', chips: 'food', biryani: 'food', momos: 'food', samosa: 'food',
-  // Entertainment
   movie: 'entertainment', game: 'entertainment', arcade: 'entertainment', bowling: 'entertainment',
   concert: 'entertainment', party: 'entertainment', club: 'entertainment', pvr: 'entertainment',
   inox: 'entertainment', gaming: 'entertainment', ps5: 'entertainment', xbox: 'entertainment',
-  // Transport
   uber: 'transport', ola: 'transport', cab: 'transport', auto: 'transport', metro: 'transport',
   bus: 'transport', train: 'transport', petrol: 'transport', fuel: 'transport', parking: 'transport',
   rapido: 'transport', bike: 'transport', taxi: 'transport',
-  // Shopping
   amazon: 'shopping', flipkart: 'shopping', myntra: 'shopping', clothes: 'shopping', shoes: 'shopping',
   shirt: 'shopping', jeans: 'shopping', zara: 'shopping', hm: 'shopping', nike: 'shopping',
   adidas: 'shopping', watch: 'shopping', bag: 'shopping', accessories: 'shopping',
-  // Subscription
   netflix: 'subscription', spotify: 'subscription', youtube: 'subscription', prime: 'subscription',
   hotstar: 'subscription', discord: 'subscription', premium: 'subscription', membership: 'subscription',
-  // Education
   book: 'education', course: 'education', udemy: 'education', coursera: 'education',
   tuition: 'education', class: 'education', notes: 'education', stationery: 'education',
   pen: 'education', notebook: 'education',
@@ -171,116 +47,19 @@ export const categorySuggestions: Record<string, Category> = {
 
 // Helper functions
 export const getCategoryColor = (category: Category): string => {
-  return categoryInfo[category].color;
+  return categoryInfo[category]?.color || categoryInfo.other.color;
 };
 
 export const getCategoryEmoji = (category: Category): string => {
-  return categoryInfo[category].emoji;
+  return categoryInfo[category]?.emoji || '💰';
 };
 
 export const getCategoryLabel = (category: Category): string => {
-  return categoryInfo[category].label;
+  return categoryInfo[category]?.label || 'Other';
 };
 
 export const formatCurrency = (amount: number): string => {
   return `₹${amount.toLocaleString('en-IN')}`;
-};
-
-export const getDaysUntil = (dateString: string): number => {
-  const today = new Date();
-  const target = new Date(dateString);
-  const diffTime = target.getTime() - today.getTime();
-  return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-};
-
-export const getTodaySpending = (): number => {
-  const today = new Date().toISOString().split('T')[0];
-  return mockTransactions
-    .filter(t => t.date === today)
-    .reduce((sum, t) => sum + t.amount, 0);
-};
-
-export const getWeeklySpending = (): number => {
-  const today = new Date();
-  const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
-  return mockTransactions
-    .filter(t => new Date(t.date) >= weekAgo)
-    .reduce((sum, t) => sum + t.amount, 0);
-};
-
-export const getMonthlySpending = (): number => {
-  const today = new Date();
-  const monthAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
-  return mockTransactions
-    .filter(t => new Date(t.date) >= monthAgo)
-    .reduce((sum, t) => sum + t.amount, 0);
-};
-
-export const getSpendingByCategory = (): Record<Category, number> => {
-  const spending: Record<Category, number> = {
-    food: 0,
-    entertainment: 0,
-    transport: 0,
-    shopping: 0,
-    subscription: 0,
-    education: 0,
-    other: 0,
-  };
-  
-  mockTransactions.forEach(t => {
-    spending[t.category] += t.amount;
-  });
-  
-  return spending;
-};
-
-export const getNeedVsWantSpending = (): { needs: number; wants: number } => {
-  const today = new Date();
-  const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
-  
-  let needs = 0;
-  let wants = 0;
-  
-  mockTransactions
-    .filter(t => new Date(t.date) >= weekAgo)
-    .forEach(t => {
-      if (t.type === 'need') {
-        needs += t.amount;
-      } else {
-        wants += t.amount;
-      }
-    });
-  
-  return { needs, wants };
-};
-
-export const getTopCategoryThisWeek = (): { category: Category; amount: number } | null => {
-  const today = new Date();
-  const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
-  
-  const spending: Record<Category, number> = {
-    food: 0,
-    entertainment: 0,
-    transport: 0,
-    shopping: 0,
-    subscription: 0,
-    education: 0,
-    other: 0,
-  };
-  
-  mockTransactions
-    .filter(t => new Date(t.date) >= weekAgo)
-    .forEach(t => {
-      spending[t.category] += t.amount;
-    });
-  
-  const entries = Object.entries(spending) as [Category, number][];
-  const sorted = entries.sort((a, b) => b[1] - a[1]);
-  
-  if (sorted[0][1] > 0) {
-    return { category: sorted[0][0], amount: sorted[0][1] };
-  }
-  return null;
 };
 
 export const suggestCategory = (note: string): Category | null => {
@@ -291,69 +70,6 @@ export const suggestCategory = (note: string): Category | null => {
     }
   }
   return null;
-};
-
-export const addTransaction = (transaction: Omit<Transaction, 'id'>): Transaction => {
-  const newTransaction: Transaction = {
-    ...transaction,
-    id: Date.now().toString(),
-  };
-  mockTransactions = [newTransaction, ...mockTransactions];
-  return newTransaction;
-};
-
-export const generateInsight = (): { text: string; emoji: string } => {
-  const todaySpending = getTodaySpending();
-  const today = new Date().toISOString().split('T')[0];
-  const foodSpending = mockTransactions
-    .filter(t => t.date === today && t.category === 'food')
-    .reduce((sum, t) => sum + t.amount, 0);
-  
-  if (foodSpending > 200) {
-    return { text: `You spent ${formatCurrency(foodSpending)} on food today`, emoji: '🍔' };
-  }
-  if (todaySpending === 0) {
-    return { text: 'No spending today - great job saving!', emoji: '🎉' };
-  }
-  return { text: `Today's total: ${formatCurrency(todaySpending)}`, emoji: '💰' };
-};
-
-export const generateMicroInsights = (): string[] => {
-  const insights: string[] = [];
-  const topCategory = getTopCategoryThisWeek();
-  const { needs, wants } = getNeedVsWantSpending();
-  const weeklySpending = getWeeklySpending();
-  const today = new Date();
-  const lastWeekStart = new Date(today.getTime() - 14 * 24 * 60 * 60 * 1000);
-  const lastWeekEnd = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
-  
-  const lastWeekSpending = mockTransactions
-    .filter(t => {
-      const date = new Date(t.date);
-      return date >= lastWeekStart && date < lastWeekEnd;
-    })
-    .reduce((sum, t) => sum + t.amount, 0);
-  
-  if (topCategory) {
-    insights.push(`You spent most on ${categoryInfo[topCategory.category].label.toLowerCase()} this week`);
-  }
-  
-  if (wants > 0 && needs > 0) {
-    const wantPercent = Math.round((wants / (wants + needs)) * 100);
-    if (wantPercent < 50) {
-      insights.push(`Nice balance! ${wantPercent}% wants, ${100 - wantPercent}% needs`);
-    }
-  }
-  
-  if (lastWeekSpending > 0 && weeklySpending < lastWeekSpending) {
-    insights.push("You're spending less than last week 📉");
-  }
-  
-  if (insights.length === 0) {
-    insights.push("Nice job staying consistent!");
-  }
-  
-  return insights;
 };
 
 // Financial literacy content
@@ -409,38 +125,47 @@ export const financeTerms: FinanceTerm[] = [
   },
   {
     id: '6',
-    term: 'EMI',
-    definition: 'Equal Monthly Installment - paying for something in parts.',
-    whyItMatters: 'Makes big purchases affordable but watch out for extra charges.',
-    example: 'Buying a ₹50,000 phone in 12 monthly payments of ₹4,500 each.',
-    emoji: '📱',
+    term: 'Compound Interest',
+    definition: 'Interest earned on both your money AND previous interest.',
+    whyItMatters: 'It\'s the reason starting to save early matters so much.',
+    example: '₹1000 at 10% becomes ₹1100 in year 1, then ₹1210 in year 2 - growing faster each year!',
+    emoji: '🚀',
   },
   {
     id: '7',
     term: 'Inflation',
-    definition: 'When prices go up over time and money buys less.',
-    whyItMatters: 'Your savings need to grow faster than inflation to keep value.',
-    example: 'A samosa that cost ₹10 five years ago might cost ₹20 now.',
+    definition: 'When prices go up over time, so your money buys less.',
+    whyItMatters: 'If your money isn\'t growing, it\'s actually losing value.',
+    example: 'A samosa that cost ₹10 five years ago might cost ₹20 now. That\'s inflation!',
     emoji: '📉',
   },
   {
     id: '8',
-    term: 'Investment',
-    definition: 'Putting money into something hoping it grows over time.',
-    whyItMatters: 'Helps your money grow faster than just saving.',
-    example: 'Buying stocks means owning a tiny piece of a company.',
-    emoji: '🌱',
+    term: 'UPI',
+    definition: 'Unified Payments Interface - India\'s instant payment system.',
+    whyItMatters: 'Makes digital payments easy, but can also make overspending easier.',
+    example: 'When you pay via Google Pay or PhonePe, that\'s UPI! Easy but watch your spending.',
+    emoji: '📱',
   },
   {
     id: '9',
-    term: 'Emergency Fund',
-    definition: 'Money saved for unexpected situations.',
-    whyItMatters: 'Covers you when your phone breaks or you have an urgent expense.',
-    example: 'Having ₹10,000 set aside for emergencies = peace of mind.',
-    emoji: '🆘',
+    term: 'EMI',
+    definition: 'Equated Monthly Installment - paying for something in monthly parts.',
+    whyItMatters: 'Makes big purchases affordable but you pay extra as interest.',
+    example: 'A ₹60,000 phone on 12-month EMI = ₹5,500/month (you pay ₹66,000 total).',
+    emoji: '💳',
+  },
+  {
+    id: '10',
+    term: 'GST',
+    definition: 'Goods and Services Tax - a tax on things you buy.',
+    whyItMatters: 'Part of every purchase price goes to the government.',
+    example: 'That ₹100 Netflix subscription? ₹18 of it is GST going to the government.',
+    emoji: '🏛️',
   },
 ];
 
+// Money myths for the Learn section
 export interface MoneyMyth {
   id: string;
   myth: string;
@@ -451,42 +176,37 @@ export interface MoneyMyth {
 export const moneyMyths: MoneyMyth[] = [
   {
     id: '1',
-    myth: "I don't earn enough to save",
-    reality: "Even ₹50/week adds up to ₹2,600/year. Start small!",
-    emoji: '🪙',
+    myth: 'You need a lot of money to start saving.',
+    reality: 'Even ₹10/day adds up to ₹3,650/year. Start small!',
+    emoji: '🐣',
   },
   {
     id: '2',
-    myth: "Credit cards are free money",
-    reality: "It's borrowed money you'll pay back with interest. Use wisely!",
+    myth: 'Credit cards are free money.',
+    reality: 'Credit cards are borrowed money. If you don\'t pay on time, interest rates can be 36-42% per year!',
     emoji: '💳',
   },
   {
     id: '3',
-    myth: "I'll start saving when I earn more",
-    reality: "Building the habit now is more important than the amount.",
-    emoji: '⏰',
+    myth: 'Investing is only for adults.',
+    reality: 'You can start learning about investing now. Some apps let you invest from ₹100!',
+    emoji: '🌱',
   },
   {
     id: '4',
-    myth: "Investing is only for rich people",
-    reality: "You can start investing with as little as ₹100 these days!",
-    emoji: '📊',
+    myth: 'You should spend less on everything.',
+    reality: 'It\'s about spending smartly, not spending less. Focus on value, not just price.',
+    emoji: '🧠',
   },
   {
     id: '5',
-    myth: "I'm too young to think about money",
-    reality: "Learning now gives you a huge advantage. Time is your superpower!",
-    emoji: '⚡',
-  },
-  {
-    id: '6',
-    myth: "All debt is bad",
-    reality: "Education loans or home loans can be good investments in your future.",
-    emoji: '🏠',
+    myth: 'More income = more wealth.',
+    reality: 'It\'s not how much you earn, it\'s how much you keep and grow. Many high earners are broke!',
+    emoji: '💰',
   },
 ];
 
+// Quiz questions
 export interface QuizQuestion {
   id: string;
   question: string;
@@ -498,48 +218,52 @@ export interface QuizQuestion {
 export const quizQuestions: QuizQuestion[] = [
   {
     id: '1',
-    question: 'What is a budget?',
-    options: ['A type of bank account', 'A plan for spending money', 'A loan from parents'],
+    question: 'What is compound interest?',
+    options: [
+      'Interest on your original amount only',
+      'Interest on your original amount AND accumulated interest',
+      'A type of bank fee',
+      'Interest charged on credit cards only',
+    ],
     correctIndex: 1,
-    explanation: 'A budget is simply a plan that helps you decide how to spend your money wisely!',
+    explanation: 'Compound interest means you earn interest on your interest too! It\'s like a snowball effect for your money.',
   },
   {
     id: '2',
-    question: 'Which is a "need"?',
-    options: ['New gaming headphones', 'School bus fare', 'Movie tickets'],
-    correctIndex: 1,
-    explanation: 'Transportation to school is essential - that makes it a need!',
+    question: 'Which is a "need" expense?',
+    options: ['New gaming headset', 'Movie tickets', 'Bus fare to school', 'Starbucks coffee'],
+    correctIndex: 2,
+    explanation: 'Bus fare to school is essential - you need transportation for education. The others are wants!',
   },
   {
     id: '3',
-    question: 'What happens to your money during inflation?',
-    options: ['It grows automatically', 'It can buy less over time', 'Nothing changes'],
+    question: 'What does GST stand for?',
+    options: ['General Sales Tax', 'Goods and Services Tax', 'Government Service Tax', 'Global Standard Tax'],
     correctIndex: 1,
-    explanation: 'Inflation means prices go up, so the same money buys fewer things.',
+    explanation: 'GST (Goods and Services Tax) is India\'s indirect tax on goods and services you buy.',
   },
   {
     id: '4',
-    question: 'Why is an emergency fund important?',
-    options: ['To buy games', 'To handle unexpected expenses', 'To impress friends'],
+    question: 'What is the 50-30-20 rule?',
+    options: [
+      '50% save, 30% needs, 20% wants',
+      '50% needs, 30% wants, 20% savings',
+      '50% wants, 30% save, 20% needs',
+      '50% invest, 30% save, 20% spend',
+    ],
     correctIndex: 1,
-    explanation: 'Emergency funds protect you from stress when unexpected expenses pop up!',
+    explanation: 'The 50-30-20 rule suggests: 50% for needs, 30% for wants, and 20% for savings.',
   },
   {
     id: '5',
-    question: 'What is interest on savings?',
-    options: ['A fee you pay', 'Money the bank gives you for saving', 'A type of tax'],
+    question: 'What happens to your money during inflation?',
+    options: [
+      'It grows automatically',
+      'It buys less over time',
+      'Nothing changes',
+      'Banks add more money',
+    ],
     correctIndex: 1,
-    explanation: 'Banks pay you interest as a reward for keeping your money with them!',
+    explanation: 'Inflation means prices go up, so your money buys less. That\'s why saving alone isn\'t enough - you need to beat inflation!',
   },
-];
-
-// Reflection questions
-export const reflectionQuestions: string[] = [
-  "Was this spending worth it?",
-  "Did this purchase make you happy?",
-  "Would you spend this way again?",
-  "What could you do differently next week?",
-  "Are you saving for something special?",
-  "Did you spend on experiences or things?",
-  "How did your spending align with your goals?",
 ];

@@ -15,7 +15,6 @@ import {
   Category,
   categoryInfo,
   suggestCategory,
-  formatCurrency,
   getCategoryEmoji,
   SpendingType,
 } from '@/data/mockData';
@@ -108,7 +107,7 @@ export const QuickAddExpense = ({ onExpenseAdded, addTransaction }: QuickAddExpe
     <>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <button className="fixed bottom-24 right-6 z-40 w-14 h-14 rounded-full gradient-primary shadow-primary flex items-center justify-center animate-pulse-soft hover:scale-110 transition-transform">
+          <button className="fixed bottom-24 left-1/2 -translate-x-1/2 z-40 w-14 h-14 rounded-full gradient-primary shadow-primary flex items-center justify-center hover:scale-110 transition-transform">
             <Plus className="w-7 h-7 text-primary-foreground" />
           </button>
         </DialogTrigger>
@@ -142,7 +141,7 @@ export const QuickAddExpense = ({ onExpenseAdded, addTransaction }: QuickAddExpe
 
             <div className="space-y-2">
               <Label htmlFor="note" className="text-sm font-semibold text-muted-foreground">Note (optional)</Label>
-              <Input id="note" value={note} onChange={(e) => handleNoteChange(e.target.value)} placeholder="e.g., burger, netflix, cab 🍔" className="rounded-xl" />
+              <Input id="note" value={note} onChange={(e) => handleNoteChange(e.target.value)} placeholder="e.g., burger, netflix, cab 🍔" className="rounded-xl" maxLength={100} />
               {suggestedCategory && (
                 <button onClick={applySuggestion} className="flex items-center gap-2 px-3 py-2 bg-primary-soft rounded-xl text-sm animate-fade-in">
                   <Sparkles className="w-4 h-4 text-primary" />
@@ -160,7 +159,7 @@ export const QuickAddExpense = ({ onExpenseAdded, addTransaction }: QuickAddExpe
               <Switch checked={!isWant} onCheckedChange={(checked) => setIsWant(!checked)} />
             </div>
 
-            <Button onClick={handleSubmit} disabled={loading} className="w-full h-14 text-lg font-bold rounded-2xl gradient-primary shadow-primary">
+            <Button onClick={handleSubmit} disabled={loading || !amount || parseFloat(amount) <= 0} className="w-full h-14 text-lg font-bold rounded-2xl gradient-primary shadow-primary">
               {loading ? 'Adding...' : 'Add Expense ✓'}
             </Button>
           </div>
