@@ -7,6 +7,7 @@ import { Bot, Send, Sparkles, X, Loader2 } from 'lucide-react';
 import { useTransactions } from '@/hooks/useTransactions';
 import { formatCurrency, categoryInfo, Category } from '@/data/mockData';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -40,10 +41,12 @@ export const SpendingAdvisor = () => {
   }, [transactions, getSpendingByCategory]);
 
   const streamChat = useCallback(async ({ messages, onDelta, onDone }: { messages: Message[]; onDelta: (t: string) => void; onDone: () => void }) => {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session?.access_token) throw new Error("Please log in to use the advisor");
     const resp = await fetch(CHAT_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}` },
-      body: JSON.stringify({ messages, spendingData: getSpendingAnalysis() }),
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
+      body: JSON.stringify({ messages: messages.slice(-10), spendingData: getSpendingAnalysis() }),
     });
     if (!resp.ok) { const error = await resp.json(); throw new Error(error.error || "Failed to get response"); }
     if (!resp.body) throw new Error("No response body");
@@ -79,6 +82,10 @@ export const SpendingAdvisor = () => {
   const sendMessage = async (inputText?: string) => {
     const messageText = inputText || input;
     if (!messageText.trim() || isLoading) return;
+    if (messageText.length > 500) {
+      toast({ variant: "destructive", title: "Message too long", description: "Please keep messages under 500 characters." });
+      return;
+    }
     const userMsg: Message = { role: 'user', content: messageText };
     setMessages(prev => [...prev, userMsg]);
     setInput('');
