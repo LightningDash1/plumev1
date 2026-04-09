@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import { SplashScreen } from "./components/SplashScreen";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 import Index from "./pages/Index";
 import { Expenses } from "./pages/Expenses";
 import { Goals } from "./pages/Goals";
@@ -48,11 +49,11 @@ const App = () => {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
-              <Route path="/expenses" element={<Expenses />} />
-              <Route path="/goals" element={<Goals />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/learn" element={<Learn />} />
-              <Route path="/tax-explorer" element={<TaxExplorer />} />
+              <Route path="/expenses" element={<ProtectedRoute><Expenses /></ProtectedRoute>} />
+              <Route path="/goals" element={<ProtectedRoute><Goals /></ProtectedRoute>} />
+              <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+              <Route path="/learn" element={<ProtectedRoute><Learn /></ProtectedRoute>} />
+              <Route path="/tax-explorer" element={<ProtectedRoute><TaxExplorer /></ProtectedRoute>} />
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
