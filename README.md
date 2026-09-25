@@ -150,7 +150,7 @@ This project was built with [Lovable](https://lovable.dev).
 
 **Live app**: https://plumev1.lovable.app
 
-## Build with Lovable
+Build with Lovable
 
 Continue developing this project in the [Lovable editor](https://lovable.dev/projects/8ad0db9c-bfd8-43a7-9dce-2e0f26a4f2f7).
 
