@@ -1,73 +1,170 @@
-# Welcome to your Lovable project
+# Plume Pocket
 
-## Project info
+**LOVABLE PROMPT – PLUME (Teen Finance App)**
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+> Build a **mobile-first fintech application** called **“Plume”**, designed specifically for **teenagers aged 13–19** to help them **understand and manage daily digital spending** in a simple, non-intimidating way.
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+### **App Type**
 
-**Use Lovable**
+Mobile app (Android-first, iOS-ready)
+Minimalist, youth-friendly UI
+Beginner-friendly fintech experience
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+### **Core Problem**
 
-**Use your preferred IDE**
+Teenagers use UPI, cards, and subscriptions daily but **lack spending awareness**.
+Existing finance apps are **too complex and adult-focused**.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+---
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### **Core Solution**
 
-Follow these steps:
+Plume automatically tracks expenses, identifies subscriptions, and presents **simple insights** that help teens build healthy money habits early.
+
+---
+
+## **Required Screens & Logic**
+
+### **1. Onboarding Flow**
+
+* Ask age (13–19)
+* Ask monthly allowance / income range
+* Ask top spending categories (food, shopping, transport, subscriptions)
+* Explain privacy in simple language
+* Optional parent email (skippable)
+
+---
+
+### **2. Home Dashboard**
+
+Show:
+
+* Today’s spending amount
+* One key insight (e.g. “You spent ₹120 on food today 🍔”)
+* Weekly spending bar (very simple)
+* CTA: “View details”
+
+Logic:
+
+* Pull transaction data from mock API
+* Update insights dynamically
+
+---
+
+### **3. Expense Breakdown**
+
+* List of recent transactions
+* Auto-categorised expenses
+* Filter by day / week
+* No complex charts (use cards and lists)
+
+---
+
+### **4. Subscriptions Page**
+
+* Detect recurring transactions
+* Show:
+
+  * App name
+  * Amount
+  * Renewal date
+* Alert 3 days before renewal
+* Button: “Remind me to cancel”
+
+---
+
+### **5. Savings Goals**
+
+* Create small goals (₹500 / ₹1000 / custom)
+* Progress bar
+* Encouraging messages (“Almost there 🎯”)
+* Streak counter (optional)
+
+---
+
+### **6. Profile & Privacy**
+
+* Toggle parental summary access (read-only)
+* Data privacy explanation
+* App theme options
+
+---
+
+## **Design Instructions**
+
+* Use soft gradients and friendly colors
+* Large typography
+* Simple icons and emojis
+* Avoid financial jargon
+* Teen-friendly microcopy
+
+---
+
+## **Data Model (Simplified)**
+
+* User (age, goals, preferences)
+* Transaction (date, amount, category)
+* Subscription (name, amount, renewal_date)
+* SavingsGoal (target, progress)
+
+---
+
+## **Technical Setup**
+
+* Use mock UPI/bank data for demo
+* Local state or simple backend
+* Focus on **MVP functionality**
+* Scalable structure
+
+---
+
+## **Tone**
+
+Supportive, friendly, confidence-building
+Never strict, never judgmental
+
+---
+
+## **Expected Output**
+
+* Functional mobile app prototype
+* Clickable flows
+* Sample data populated
+* Clean UI ready for demo & judging
+
+---
+
+### 🧠 **Lovable Pro Tip (for Zonal Round)**
+
+After generation:
+
+* Rename buttons to **human language** (“Check spending”, not “Analytics”)
+* Add **1 insight card per screen**
+* Keep navigation to **max 4 tabs**
+
+This project was built with [Lovable](https://lovable.dev).
+
+**Live app**: https://plumev1.lovable.app
+
+## Build with Lovable
+
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/8ad0db9c-bfd8-43a7-9dce-2e0f26a4f2f7).
+
+- **Ship faster**: describe what you want to build and Lovable handles the code.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+
+## Development
+
+Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
+git clone <this-repository-url>
+cd <repository-name>
 npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
 npm run dev
 ```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
